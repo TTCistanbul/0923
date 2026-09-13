@@ -1,0 +1,874 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Giriş Kartı · Tayvan Tedarikçi Buluşması 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0B2140; --navy-2:#123055; --gold:#C9A552; --gold-soft:#E6D29A;
+    --ice:#EEF2F7; --ink:#0B1622; --muted:#5A6B80; --ok:#1E7A5B; --danger:#A3342B;
+    --line:rgba(11,33,64,.14); --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{background:var(--ice);color:var(--ink);font-size:16px;line-height:1.55;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans TC",sans-serif;
+    -webkit-text-size-adjust:100%}
+  h1,h2,h3{font-family:"Archivo",-apple-system,"Segoe UI",sans-serif;letter-spacing:-.015em;margin:0}
+  .wrap{max-width:560px;margin:0 auto;padding:0 18px 56px}
+  .admin .wrap,.scan .wrap{max-width:1120px}
+  [hidden]{display:none !important}
+
+  .hero{background:var(--navy);color:#fff;padding:22px 0 28px;position:relative;overflow:hidden;border-bottom:3px solid var(--gold)}
+  .hero::after{content:"";position:absolute;inset:0;opacity:.16;pointer-events:none;
+    background-image:repeating-linear-gradient(45deg,transparent 0 22px,var(--gold-soft) 22px 23px),
+                     repeating-linear-gradient(-45deg,transparent 0 22px,var(--gold-soft) 22px 23px)}
+  .hero .wrap{position:relative;z-index:1}
+  .topbar{display:flex;justify-content:space-between;align-items:center;padding-bottom:12px}
+  .ver{font-size:11.5px;color:rgba(255,255,255,.5);letter-spacing:.04em}
+  .lang{display:inline-flex;border:1px solid rgba(255,255,255,.35);border-radius:99px;overflow:hidden}
+  .lang button{background:transparent;color:#D5DFEC;border:0;padding:5px 13px;font-size:13px;cursor:pointer}
+  .lang button.on{background:var(--gold);color:#1A1405;font-weight:600}
+  .org{font-size:12.5px;color:var(--gold-soft);margin-bottom:10px}
+  .hero h1{font-size:27px;font-weight:800;line-height:1.14}
+  .hero .meta{margin-top:11px;font-size:14.5px;color:#D5DFEC}
+  .hero .meta b{display:block;font-weight:600;color:#fff}
+
+  .card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:22px 20px;
+    margin-top:-16px;position:relative;z-index:2;box-shadow:0 10px 30px rgba(11,33,64,.08)}
+  .card+.card{margin-top:16px;box-shadow:none}
+
+  /* ticket */
+  #ticketName{font-family:"Archivo",sans-serif;font-size:29px;font-weight:800;line-height:1.14}
+  #ticketOrg{font-size:16px;color:var(--muted);margin-top:2px}
+  .qrframe{margin:20px auto 8px;padding:16px;border:1px solid var(--line);border-radius:12px;max-width:300px;background:#fff}
+  .qrframe canvas{width:100%;height:auto;display:block;image-rendering:pixelated}
+  #ticketCode{text-align:center;font-family:"Archivo",sans-serif;font-size:19px;font-weight:600;letter-spacing:.09em;color:var(--navy-2)}
+  .ticket-tip{margin-top:18px;padding:13px 15px;background:#FBF6E9;border:1px solid rgba(201,165,82,.45);
+    border-radius:11px;font-size:14px;color:#6B551A}
+  .kv{display:flex;gap:12px;padding:9px 0;border-bottom:1px solid var(--line);font-size:14.5px}
+  .kv:last-child{border-bottom:0}
+  .kv b{min-width:88px;color:var(--muted);font-weight:600}
+  .stamp{margin-top:16px;padding:12px;border-radius:11px;background:#F2F7F4;border:1px solid rgba(30,122,91,.3);
+    color:#1B4E3D;font-size:14.5px;text-align:center;font-weight:600}
+
+  /* buttons / forms */
+  button{font-family:inherit;font-size:16px;cursor:pointer}
+  .btn{width:100%;padding:15px;border:0;border-radius:11px;background:var(--navy);color:#fff;font-weight:600}
+  .btn:active{background:var(--navy-2)}
+  .btn[disabled]{opacity:.5;cursor:not-allowed}
+  .btn-ghost{background:#fff;color:var(--navy);border:1.5px solid var(--line);font-weight:600;padding:11px 16px;border-radius:10px}
+  .btn-sm{padding:8px 12px;font-size:14px;border-radius:9px}
+  input[type=text],input[type=email],input[type=tel],input[type=password],select,textarea{
+    width:100%;padding:12px 14px;font-size:16px;font-family:inherit;color:var(--ink);
+    border:1.5px solid var(--line);border-radius:10px;background:#fff}
+  textarea{min-height:130px;font-size:13px;line-height:1.5;font-family:ui-monospace,Menlo,Consolas,monospace}
+  label{display:block;font-size:14px;font-weight:600;margin-bottom:6px}
+  .field{margin-bottom:15px}
+  .err{color:var(--danger);font-size:13.5px;margin-top:6px;display:none}
+  .field.bad input{border-color:var(--danger)} .field.bad .err{display:block}
+  :focus-visible{outline:3px solid rgba(201,165,82,.55);outline-offset:1px}
+  .hint{font-size:13px;color:var(--muted);line-height:1.65}
+  .banner{padding:10px 14px;border-radius:10px;font-size:13.5px;margin-bottom:14px}
+  .banner.warn{background:#FBF6E9;border:1px solid rgba(201,165,82,.5);color:#6B551A}
+  .banner.bad{background:#FBEFEE;border:1px solid rgba(163,52,43,.35);color:#7E2820}
+  .banner.good{background:#F2F7F4;border:1px solid rgba(30,122,91,.3);color:#1B4E3D}
+
+  /* scanner */
+  .scan{background:#08111F}
+  #viewScan .bar{background:var(--navy);color:#fff;padding:10px 0}
+  #viewScan .bar .wrap{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding-bottom:0}
+  #viewScan .bar h2{font-size:16px;font-weight:600}
+  #viewScan .bar .sp{margin-left:auto;display:flex;gap:8px;align-items:center}
+  .pill{background:rgba(255,255,255,.12);border-radius:99px;padding:4px 12px;font-size:13px;color:#D5DFEC}
+  .pill.alert{background:var(--gold);color:#1A1405;font-weight:600}
+  .camwrap{position:relative;max-width:520px;margin:18px auto 0;border-radius:16px;overflow:hidden;background:#000;aspect-ratio:1}
+  #cam{width:100%;height:100%;object-fit:cover;display:block}
+  .reticle{position:absolute;inset:14%;border:3px solid rgba(201,165,82,.9);border-radius:14px;pointer-events:none}
+  .result{max-width:520px;margin:16px auto 0;border-radius:16px;padding:22px;text-align:center;color:#fff;display:none}
+  .result.on{display:block}
+  .result.ok{background:var(--ok)} .result.dup{background:#9C7A1E} .result.no{background:var(--danger)}
+  .result h3{font-size:15px;font-weight:600;opacity:.9}
+  .result .nm{font-family:"Archivo",sans-serif;font-size:30px;font-weight:800;margin:8px 0 2px;line-height:1.15}
+  .result .og{font-size:16px;opacity:.92}
+  .result .sub{margin-top:10px;font-size:14px;opacity:.85}
+  .manual{max-width:520px;margin:20px auto 0;background:#fff;border-radius:14px;padding:18px}
+  .hitlist{margin-top:10px;max-height:230px;overflow:auto}
+  .hit{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:10px;border-bottom:1px solid var(--line)}
+  .hit b{display:block;font-size:15px} .hit span{font-size:13px;color:var(--muted)}
+  .hit .done{color:var(--ok);font-size:13px;font-weight:600}
+
+  /* admin */
+  .admin{background:#fff}
+  .abar{background:var(--navy);color:#fff;padding:11px 0}
+  .abar .wrap{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding-bottom:0}
+  .abar h2{font-size:16px;font-weight:600}
+  .tabs{display:flex;gap:6px;margin-left:auto;flex-wrap:wrap}
+  .tabs button{background:rgba(255,255,255,.1);color:#D5DFEC;border:0;padding:7px 13px;border-radius:8px;font-size:14px}
+  .tabs button.on{background:#fff;color:var(--navy);font-weight:600}
+  .pane{display:none;padding-top:20px} .pane.on{display:block}
+  .stats{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+  .stat{border:1px solid var(--line);border-radius:11px;padding:11px 17px;min-width:100px}
+  .stat b{display:block;font-family:"Archivo",sans-serif;font-size:26px;font-weight:800;line-height:1.1}
+  .stat span{font-size:12.5px;color:var(--muted)}
+  .toolrow{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+  .toolrow input[type=text]{width:auto;flex:1;min-width:170px;padding:9px 12px;font-size:14px}
+  table{width:100%;border-collapse:collapse;font-size:14px}
+  th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{background:#F6F8FB;font-size:12.5px;color:var(--muted);font-weight:600;position:sticky;top:0;z-index:1}
+  .tablewrap{max-height:58vh;overflow:auto;border:1px solid var(--line);border-radius:11px}
+  .empty{padding:30px;text-align:center;color:var(--muted)}
+  .code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;letter-spacing:.03em}
+  .yes{color:var(--ok);font-weight:600} .no{color:var(--muted)}
+  .row2{display:flex;gap:20px;flex-wrap:wrap;align-items:flex-start}
+  .col{flex:1;min-width:290px}
+  .gate{max-width:340px;margin:70px auto;padding:0 18px;text-align:center}
+  .gate h2{font-size:19px;margin-bottom:14px}
+  .steps{counter-reset:s;margin:0 0 16px;padding:0;list-style:none}
+  .steps li{counter-increment:s;position:relative;padding-left:30px;margin-bottom:10px;font-size:14px}
+  .steps li::before{content:counter(s);position:absolute;left:0;top:1px;width:21px;height:21px;border-radius:50%;
+    background:var(--navy);color:#fff;font-size:12px;font-weight:700;display:grid;place-items:center}
+  @media print{.abar,.toolrow,.tabs{display:none}}
+</style>
+</head>
+<body>
+
+<!-- ================= 個人票券頁（信裡的按鈕點進來） ================= -->
+<div id="viewTicket" hidden>
+  <header class="hero">
+    <div class="wrap">
+      <div class="topbar">
+        <span class="ver">V4</span>
+        <span class="lang">
+          <button type="button" data-lang="tr" class="on">TR</button>
+          <button type="button" data-lang="en">EN</button>
+        </span>
+      </div>
+      <div class="org" data-lk="org">Tayvan Ticaret Merkezi İstanbul Temsilciliği · TAITRA</div>
+      <h1 data-lk="title">Tayvan Tedarikçi Buluşması 2026</h1>
+      <div class="meta">
+        <b data-lk="date">23 Eylül 2026, Çarşamba &nbsp;10:00 – 16:00</b>
+        <span data-lk="venue">Hilton İstanbul Maslak</span>
+      </div>
+    </div>
+  </header>
+  <main class="wrap">
+    <div class="card" id="ticketCard">
+      <div id="ticketName">—</div>
+      <div id="ticketOrg"></div>
+      <div class="qrframe"><canvas id="ticketQR" width="300" height="300"></canvas></div>
+      <div id="ticketCode"></div>
+      <div class="stamp" id="ticketStamp" hidden></div>
+      <div class="ticket-tip" data-lk="tip">Girişte bu kodu kayıt masasında okutun. Salonda internet zayıf olabilir, şimdi ekran görüntüsü alın.</div>
+    </div>
+    <div class="card">
+      <div class="kv"><b data-lk="k-date">Tarih</b><span data-lk="v-date">23 Eylül 2026, Çarşamba</span></div>
+      <div class="kv"><b data-lk="k-time">Saat</b><span>10:00 – 16:00</span></div>
+      <div class="kv"><b data-lk="k-place">Yer</b><span>Hilton İstanbul Maslak</span></div>
+      <div class="kv"><b data-lk="k-contact">İletişim</b><span>Osman GEDİK · 0 212 290 40 00<br>osman@taitra.org.tw</span></div>
+    </div>
+  </main>
+</div>
+
+<!-- ================= 找不到票券 ================= -->
+<div id="viewBad" hidden>
+  <header class="hero"><div class="wrap"><h1 data-lk="title">Tayvan Tedarikçi Buluşması 2026</h1></div></header>
+  <main class="wrap"><div class="card">
+    <h2 data-lk="bad-head">Kart bulunamadı</h2>
+    <p class="hint" style="margin-top:10px" data-lk="bad-body">Bağlantı eksik ya da hatalı olabilir. Davet e-postasındaki butonu tekrar deneyin; sorun sürerse osman@taitra.org.tw adresine yazın. Girişte adınızı söylemeniz de yeterli.</p>
+  </div></main>
+</div>
+
+<!-- ================= 掃碼報到（工作人員） ================= -->
+<div id="viewScan" class="scan" hidden>
+  <div class="bar"><div class="wrap">
+    <h2>掃碼報到</h2>
+    <div class="sp">
+      <span class="pill" id="scanStat">0 / 0</span>
+      <span class="pill" id="pendPill" hidden>待同步 0</span>
+      <button class="btn-ghost btn-sm" type="button" id="camBtn">開啟相機</button>
+    </div>
+  </div></div>
+  <div class="wrap">
+    <div class="camwrap" id="camWrap" hidden>
+      <video id="cam" playsinline muted></video>
+      <div class="reticle"></div>
+    </div>
+    <div class="result" id="scanRes"></div>
+    <div class="manual">
+      <label for="mq">掃不到就用手打：姓名 / 公司 / 代碼</label>
+      <input type="text" id="mq" placeholder="輸入兩個字以上">
+      <div class="hitlist" id="hits"></div>
+    </div>
+    <p class="hint" style="color:#7E8CA0;text-align:center;margin-top:16px">相機需要 https 網址才能開。名單已存在這台裝置，網路斷了照樣能報到，恢復後自動補傳。</p>
+  </div>
+</div>
+
+<!-- ================= 後台 ================= -->
+<div id="viewAdmin" class="admin" hidden>
+  <div class="gate" id="gate">
+    <h2>報到後台</h2>
+    <input id="pw" type="password" placeholder="密碼">
+    <button class="btn" style="margin-top:12px" type="button" id="pwBtn">進入</button>
+  </div>
+
+  <div id="adminBody" hidden>
+    <div class="abar"><div class="wrap">
+      <h2>報到後台 · Tayvan Tedarikçi Buluşması</h2>
+      <div class="tabs">
+        <button type="button" data-pane="imp" class="on">匯入名單</button>
+        <button type="button" data-pane="list">名單與狀態</button>
+        <button type="button" data-pane="mail">信件素材</button>
+        <button type="button" data-pane="cfg">設定</button>
+      </div>
+    </div></div>
+
+    <div class="wrap">
+      <!-- 匯入 -->
+      <section class="pane on" id="pane-imp">
+        <div class="row2">
+          <div class="col">
+            <ol class="steps">
+              <li>從 Google 表單下載報名回覆，或直接在 Excel 裡框選整片（含標題列）複製。</li>
+              <li>貼進下面的框，或選檔案上傳。</li>
+              <li>對好欄位，按「產生名單與代碼」。</li>
+            </ol>
+            <div class="field">
+              <label for="paste">貼上名單（Excel 直接 Ctrl+V）</label>
+              <textarea id="paste" placeholder="Ad Soyad&#9;Firma&#9;E-posta&#9;Telefon"></textarea>
+            </div>
+            <div class="toolrow">
+              <input type="file" id="file" accept=".csv,.xlsx,.xls,.tsv,.txt" style="font-size:13px">
+              <button class="btn-ghost btn-sm" type="button" id="parseBtn">讀取</button>
+            </div>
+            <div class="banner" id="impMsg" hidden></div>
+          </div>
+          <div class="col" id="mapBox" hidden>
+            <h3 style="font-size:16px;margin-bottom:12px">欄位對應</h3>
+            <div class="field"><label for="mName">姓名</label><select id="mName"></select></div>
+            <div class="field"><label for="mOrg">公司</label><select id="mOrg"></select></div>
+            <div class="field"><label for="mMail">Email</label><select id="mMail"></select></div>
+            <div class="field"><label for="mTel">電話</label><select id="mTel"></select></div>
+            <div class="field"><label for="mCode">既有代碼（沒有就留「自動產生」）</label><select id="mCode"></select></div>
+            <button class="btn" type="button" id="buildBtn">產生名單與代碼</button>
+            <p class="hint" style="margin-top:10px">用 Email 當身分依據。再匯入一次不會洗掉已經報到的紀錄，同一個 Email 會沿用原本的代碼。</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 名單 -->
+      <section class="pane" id="pane-list">
+        <div class="banner warn" id="localBanner" hidden>本機模式：資料只存在這台瀏覽器，沒上雲。先到「設定」測試連線。</div>
+        <div class="stats">
+          <div class="stat"><b id="stTotal">0</b><span>應到</span></div>
+          <div class="stat"><b id="stIn">0</b><span>已報到</span></div>
+          <div class="stat"><b id="stRate">0%</b><span>報到率</span></div>
+          <div class="stat"><b id="stFirm">0</b><span>公司數</span></div>
+        </div>
+        <div class="toolrow">
+          <input type="text" id="q" placeholder="搜尋姓名 / 公司 / Email / 代碼">
+          <select id="filt" style="width:auto;padding:9px 12px;font-size:14px">
+            <option value="all">全部</option><option value="in">已報到</option><option value="out">未報到</option>
+          </select>
+          <button class="btn-ghost btn-sm" type="button" id="refreshBtn">重新整理</button>
+          <button class="btn-ghost btn-sm" type="button" id="csvBtn">匯出 CSV</button>
+          <button class="btn-ghost btn-sm" type="button" id="zipBtn">下載全部 QR（ZIP）</button>
+          <span class="hint" id="syncInfo"></span>
+        </div>
+        <div class="tablewrap">
+          <table>
+            <thead><tr><th style="width:118px">代碼</th><th>姓名</th><th>公司</th><th>Email</th>
+              <th style="width:86px">報到</th><th style="width:150px">票券連結</th><th style="width:62px"></th></tr></thead>
+            <tbody id="rows"></tbody>
+          </table>
+          <div class="empty" id="emptyMsg">還沒有名單，先到「匯入名單」。</div>
+        </div>
+        <p class="hint" style="margin-top:10px">QR 內容就是票券連結，用一般相機 App 掃也能開。</p>
+      </section>
+
+      <!-- 信件素材 -->
+      <section class="pane" id="pane-mail">
+        <div class="row2">
+          <div class="col">
+            <div class="field">
+              <label for="tokUrl">你發信平台的「票券連結」變數</label>
+              <input type="text" id="tokUrl" value="{{ contact.ticket_url }}">
+            </div>
+            <div class="field">
+              <label for="tokName">姓名變數</label>
+              <input type="text" id="tokName" value="{{ contact.firstname }}">
+            </div>
+            <div class="field">
+              <label for="tokCode">代碼變數（HTML 模組的圖片用）</label>
+              <input type="text" id="tokCode" value="{{ contact.qr_kod }}">
+            </div>
+            <div class="toolrow">
+              <button class="btn-ghost btn-sm" type="button" data-copy="snipImg">複製 QR 圖片區塊</button>
+              <button class="btn-ghost btn-sm" type="button" data-copy="snipHtml">複製按鈕區塊</button>
+              <button class="btn-ghost btn-sm" type="button" data-copy="snipText">複製純文字</button>
+              <button class="btn-ghost btn-sm" type="button" id="csvMailBtn">匯出發信用 CSV</button>
+            </div>
+            <p class="hint">
+              HubSpot：新增一個 rich text 模組，切到原始碼貼上 HTML。變數名稱要跟你自訂屬性一致。<br>
+              發信用 CSV 含 email／姓名／代碼／票券連結／QR 圖片網址，可直接當匯入清單或 mail merge 來源。<br>
+              QR 圖片網址走 quickchart.io，對方信箱擋外部圖片時會變破圖，所以按鈕才是主角。
+            </p>
+          </div>
+          <div class="col">
+            <div class="field"><label for="snipImg">QR 圖片區塊（貼進 HTML 模組）</label><textarea id="snipImg" readonly></textarea></div>
+            <div class="field"><label for="snipHtml">按鈕區塊</label><textarea id="snipHtml" readonly></textarea></div>
+            <div class="field"><label for="snipText">純文字</label><textarea id="snipText" readonly style="min-height:110px"></textarea></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 設定 -->
+      <section class="pane" id="pane-cfg">
+        <div class="row2">
+          <div class="col">
+            <div class="field"><label for="cfgDb">Firebase Realtime Database 網址</label><input type="text" id="cfgDb"></div>
+            <div class="field"><label for="cfgEvent">活動代號</label><input type="text" id="cfgEvent"></div>
+            <div class="field"><label for="cfgBase">票券頁網址（部署後的網址，不含 #）</label><input type="text" id="cfgBase" placeholder="https://ttcistanbul.github.io/0923/checkin.html"></div>
+            <div class="field"><label for="cfgQr">QR 圖片資料夾網址（ZIP 解壓後上傳到這裡）</label><input type="text" id="cfgQr" placeholder="https://ttcistanbul.github.io/0923/qr/"></div>
+            <div class="toolrow">
+              <button class="btn-ghost btn-sm" type="button" id="cfgSave">儲存</button>
+              <button class="btn-ghost btn-sm" type="button" id="cfgTest">測試連線</button>
+              <button class="btn-ghost btn-sm" type="button" id="wipeBtn" style="color:var(--danger)">清空活動資料</button>
+            </div>
+            <div class="banner" id="cfgMsg" hidden></div>
+          </div>
+          <div class="col">
+            <p class="hint">
+              資料路徑 <code>stageTool/checkin/&lt;活動代號&gt;/guests</code>，掛在既有 stageTool 資料庫底下，不會動到舞台排程。<br><br>
+              部署：把 checkin.html 放進 <code>TTCistanbul/0923</code> 的 main 根目錄，另外建一個 <code>qr/</code> 資料夾放 QR 圖，再加一個空的 <code>.nojekyll</code> 檔。Settings → Pages 選 Deploy from a branch、main、/(root)。<br><br>
+              現場工作人員的掃碼頁：票券網址後面加 <code>#scan</code>，用手機開，需要 https 才能叫相機。<br><br>
+              連不上雲端時全部功能照常，資料留在本機，之後回到「名單」按重新整理會自動補傳。
+            </p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+/* ---------- 基本 ---------- */
+var DEF_DB="https://stagetool-f9ffb-default-rtdb.asia-southeast1.firebasedatabase.app";
+var DEF_EVENT="istanbul-2026-09-23", PW="taitra2026";
+var DEF_BASE="https://ttcistanbul.github.io/0923/checkin.html";
+var DEF_QR="https://ttcistanbul.github.io/0923/qr/";
+var LS_CFG="ck2Cfg", LS_G="ck2Guests", LS_P="ck2Pending";
+var $=function(s,r){return (r||document).querySelector(s);};
+var $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s));};
+function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
+function pad(n){return n<10?"0"+n:""+n;}
+function hhmm(ts){var d=new Date(ts);return pad(d.getHours())+":"+pad(d.getMinutes());}
+
+function cfg(){var c={};try{c=JSON.parse(localStorage.getItem(LS_CFG)||"{}");}catch(e){}
+  return {db:(c.db||DEF_DB).replace(/\/+$/,""),event:c.event||DEF_EVENT,
+          base:c.base||DEF_BASE,
+          qrbase:(c.qrbase||DEF_QR).replace(/\/*$/,"/")};}
+function gpath(){var c=cfg();return c.db+"/stageTool/checkin/"+c.event+"/guests";}
+function ticketUrl(code){return cfg().base+"#t="+encodeURIComponent(code);}
+function qrImgUrl(code){return cfg().qrbase+encodeURIComponent(code)+".png";}
+
+/* ---------- 本機快取 ---------- */
+function cacheGet(){try{return JSON.parse(localStorage.getItem(LS_G)||"{}");}catch(e){return {};}}
+function cacheSet(o){try{localStorage.setItem(LS_G,JSON.stringify(o));}catch(e){}}
+function pendGet(){try{return JSON.parse(localStorage.getItem(LS_P)||"{}");}catch(e){return {};}}
+function pendSet(o){try{localStorage.setItem(LS_P,JSON.stringify(o));}catch(e){}
+  var n=Object.keys(o).length,p=$("#pendPill");
+  if(p){p.hidden=!n;p.textContent="待同步 "+n;p.classList.toggle("alert",!!n);}}
+
+var guests={};
+
+function pull(){
+  return fetch(gpath()+".json").then(function(r){if(!r.ok)throw new Error("HTTP "+r.status);return r.json();})
+    .then(function(j){
+      guests=j||{};
+      var pend=pendGet(),keys=Object.keys(pend),chain=Promise.resolve();
+      keys.forEach(function(k){
+        if(guests[k]&&!guests[k].checkedAt){
+          chain=chain.then(function(){return push(k,pend[k]);});
+        }
+        if(guests[k]) guests[k].checkedAt=guests[k].checkedAt||pend[k];
+      });
+      return chain.then(function(){pendSet({});cacheSet(guests);return {cloud:true};},
+                        function(){cacheSet(guests);return {cloud:true};});
+    })["catch"](function(){guests=cacheGet();return {cloud:false};});
+}
+
+function push(code,ts){
+  return fetch(gpath()+"/"+encodeURIComponent(code)+"/checkedAt.json",
+    {method:"PUT",body:JSON.stringify(ts)}).then(function(r){if(!r.ok)throw new Error("HTTP "+r.status);});
+}
+
+function putAll(obj){
+  return fetch(gpath()+".json",{method:"PUT",body:JSON.stringify(obj)})
+    .then(function(r){if(!r.ok)throw new Error("HTTP "+r.status);});
+}
+
+function checkIn(code){
+  var g=guests[code]; if(!g) return Promise.resolve("unknown");
+  if(g.checkedAt) return Promise.resolve("dup");
+  var ts=Date.now(); g.checkedAt=ts; cacheSet(guests);
+  return push(code,ts).then(function(){return "ok";},function(){
+    var p=pendGet(); p[code]=ts; pendSet(p); return "ok";
+  });
+}
+
+/* ---------- 語言 ---------- */
+var EN={org:"Taiwan Trade Center, Istanbul · TAITRA",title:"Taiwan Supplier Meetup 2026",
+  date:"Wednesday, 23 September 2026 &nbsp;10:00 – 16:00",venue:"Hilton İstanbul Maslak",
+  tip:"Show this code at the registration desk. Signal inside the hall can be weak, so take a screenshot now.",
+  "k-date":"Date","k-time":"Time","k-place":"Venue","k-contact":"Contact","v-date":"Wednesday, 23 September 2026",
+  "bad-head":"Card not found",
+  "bad-body":"The link may be incomplete. Try the button in your invitation email again, or write to osman@taitra.org.tw. Giving your name at the desk also works."};
+var TR=null,lang="tr";
+function snap(){TR={};$$("[data-lk]").forEach(function(el){TR[el.getAttribute("data-lk")]=el.innerHTML;});}
+function setLang(L){lang=L;var d=(L==="en")?EN:TR;
+  $$("[data-lk]").forEach(function(el){var k=el.getAttribute("data-lk");if(d&&d[k])el.innerHTML=d[k];});
+  document.documentElement.lang=L;
+  $$(".lang button").forEach(function(b){b.classList.toggle("on",b.getAttribute("data-lang")===L);});}
+
+/* ---------- QR ---------- */
+var qrLib=null;
+function loadScript(src){return new Promise(function(res,rej){
+  var s=document.createElement("script");s.src=src;s.onload=res;s.onerror=function(){rej(new Error("載入失敗："+src));};
+  document.head.appendChild(s);});}
+function loadQR(){return qrLib?Promise.resolve(qrLib):
+  loadScript("https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.js")
+  .then(function(){qrLib=window.qrcode;return qrLib;});}
+
+function drawQR(canvas,text,px){
+  return loadQR().then(function(qrcode){
+    var q=qrcode(0,"M");q.addData(text);q.make();
+    var count=q.getModuleCount(),quiet=4,total=count+quiet*2;
+    var cell=Math.max(1,Math.floor((px||600)/total)),size=cell*total;
+    canvas.width=size;canvas.height=size;
+    var g=canvas.getContext("2d");
+    g.fillStyle="#FFFFFF";g.fillRect(0,0,size,size);
+    g.fillStyle="#0B2140";
+    for(var r=0;r<count;r++)for(var c=0;c<count;c++)
+      if(q.isDark(r,c)) g.fillRect((c+quiet)*cell,(r+quiet)*cell,cell,cell);
+    return canvas;
+  });
+}
+
+/* ---------- 票券頁 ---------- */
+function showTicket(code){
+  function paint(g){
+    if(!g){show("viewBad");return;}
+    show("viewTicket");
+    $("#ticketName").textContent=g.name||"";
+    $("#ticketOrg").textContent=g.org||"";
+    $("#ticketCode").textContent=code;
+    if(g.checkedAt){var s=$("#ticketStamp");s.hidden=false;
+      s.textContent=(lang==="en"?"Checked in at ":"Giriş yapıldı · ")+hhmm(g.checkedAt);}
+    drawQR($("#ticketQR"),ticketUrl(code),600)["catch"](function(){
+      $("#ticketQR").outerHTML='<p class="hint" style="text-align:center">Kod: <b>'+esc(code)+"</b></p>";});
+  }
+  fetch(gpath()+"/"+encodeURIComponent(code)+".json")
+    .then(function(r){return r.ok?r.json():null;})
+    .then(function(g){paint(g||cacheGet()[code]||null);})
+    ["catch"](function(){paint(cacheGet()[code]||null);});
+}
+
+/* ---------- 掃碼 ---------- */
+var stream=null,scanning=false,lastCode="",lastAt=0;
+function startCam(){
+  if(scanning) return stopCam();
+  loadScript("https://cdnjs.cloudflare.com/ajax/libs/jsQR/1.4.0/jsQR.js").then(function(){
+    return navigator.mediaDevices.getUserMedia({video:{facingMode:"environment"}});
+  }).then(function(s){
+    stream=s;var v=$("#cam");v.srcObject=s;v.play();
+    $("#camWrap").hidden=false;$("#camBtn").textContent="關閉相機";scanning=true;tick();
+  })["catch"](function(e){
+    res("no","相機打不開","",(location.protocol==="https:"?"":"要用 https 網址才能開相機。")+" "+e.message);
+  });
+}
+function stopCam(){
+  scanning=false;if(stream){stream.getTracks().forEach(function(t){t.stop();});stream=null;}
+  $("#camWrap").hidden=true;$("#camBtn").textContent="開啟相機";
+}
+var cvs=document.createElement("canvas");
+function tick(){
+  if(!scanning) return;
+  var v=$("#cam");
+  if(v.readyState===v.HAVE_ENOUGH_DATA&&window.jsQR){
+    var w=Math.min(520,v.videoWidth||0);
+    if(w){
+      var h=Math.round(v.videoHeight*(w/v.videoWidth));
+      cvs.width=w;cvs.height=h;
+      var g=cvs.getContext("2d",{willReadFrequently:true});
+      g.drawImage(v,0,0,w,h);
+      var d=g.getImageData(0,0,w,h);
+      var q=window.jsQR(d.data,w,h,{inversionAttempts:"dontInvert"});
+      if(q&&q.data) handleCode(q.data);
+    }
+  }
+  requestAnimationFrame(tick);
+}
+function extractCode(raw){
+  var s=String(raw).trim();
+  var m=s.match(/#t=([^&\s]+)/);
+  return decodeURIComponent(m?m[1]:s);
+}
+function beep(ok){
+  try{var A=window.AudioContext||window.webkitAudioContext;if(!A)return;
+    var c=new A(),o=c.createOscillator(),g=c.createGain();
+    o.frequency.value=ok?880:300;o.connect(g);g.connect(c.destination);
+    g.gain.setValueAtTime(.18,c.currentTime);g.gain.exponentialRampToValueAtTime(.001,c.currentTime+.2);
+    o.start();o.stop(c.currentTime+.2);}catch(e){}
+}
+function res(kind,head,name,sub,org){
+  var r=$("#scanRes");r.className="result on "+kind;
+  r.innerHTML="<h3>"+esc(head)+"</h3>"+(name?'<div class="nm">'+esc(name)+"</div>":"")+
+    (org?'<div class="og">'+esc(org)+"</div>":"")+(sub?'<div class="sub">'+esc(sub)+"</div>":"");
+}
+function handleCode(raw){
+  var code=extractCode(raw),now=Date.now();
+  if(code===lastCode&&now-lastAt<2500) return;
+  lastCode=code;lastAt=now;
+  var g=guests[code];
+  if(!g){beep(false);res("no","名單上找不到這組代碼",code,"請他報名字，用下面的手打搜尋。");return;}
+  if(g.checkedAt){beep(false);res("dup","已經報到過了",g.name,hhmm(g.checkedAt)+" 進場",g.org);stat();return;}
+  checkIn(code).then(function(){beep(true);res("ok","報到成功",g.name,code,g.org);stat();});
+}
+function stat(){
+  var all=Object.keys(guests),inn=all.filter(function(k){return guests[k].checkedAt;});
+  var el=$("#scanStat");if(el)el.textContent=inn.length+" / "+all.length;
+}
+function manual(){
+  var q=$("#mq").value.trim().toLowerCase();
+  var box=$("#hits");box.innerHTML="";
+  if(q.length<2) return;
+  Object.keys(guests).filter(function(k){
+    var g=guests[k];
+    return (k+" "+g.name+" "+(g.org||"")+" "+(g.mail||"")).toLowerCase().indexOf(q)>=0;
+  }).slice(0,12).forEach(function(k){
+    var g=guests[k],d=document.createElement("div");d.className="hit";
+    d.innerHTML="<div><b>"+esc(g.name)+"</b><span>"+esc(g.org||"")+" · "+esc(k)+"</span></div>";
+    var right=document.createElement("div");
+    if(g.checkedAt){right.className="done";right.textContent=hhmm(g.checkedAt)+" 已到";}
+    else{var b=document.createElement("button");b.className="btn-ghost btn-sm";b.type="button";b.textContent="報到";
+      b.onclick=function(){checkIn(k).then(function(){beep(true);res("ok","報到成功",g.name,k,g.org);stat();manual();});};
+      right.appendChild(b);}
+    d.appendChild(right);box.appendChild(d);
+  });
+}
+
+/* ---------- 匯入 ---------- */
+var table=null;
+function splitRows(text){
+  var rows=text.replace(/\r/g,"").split("\n").filter(function(l){return l.trim()!=="";});
+  var sep=rows[0].indexOf("\t")>=0?"\t":",";
+  return rows.map(function(l){return sep==="\t"?l.split("\t"):csvLine(l);});
+}
+function csvLine(l){
+  var out=[],cur="",q=false;
+  for(var i=0;i<l.length;i++){var ch=l[i];
+    if(q){ if(ch==='"'){ if(l[i+1]==='"'){cur+='"';i++;} else q=false; } else cur+=ch; }
+    else { if(ch==='"') q=true; else if(ch===","){out.push(cur);cur="";} else cur+=ch; }}
+  out.push(cur);return out.map(function(s){return s.trim();});
+}
+function impMsg(kind,text){var m=$("#impMsg");m.hidden=false;m.className="banner "+(kind||"");m.textContent=text;}
+
+function guessCol(head,keys){
+  for(var i=0;i<head.length;i++){
+    var h=String(head[i]).toLowerCase();
+    for(var j=0;j<keys.length;j++) if(h.indexOf(keys[j])>=0) return i;
+  }
+  return -1;
+}
+function fillMap(head){
+  var sels=["mName","mOrg","mMail","mTel","mCode"];
+  sels.forEach(function(id){
+    var s=$("#"+id);s.innerHTML="";
+    var o=document.createElement("option");o.value="-1";
+    o.textContent=(id==="mCode")?"自動產生":"（不使用）";s.appendChild(o);
+    head.forEach(function(h,i){var op=document.createElement("option");op.value=i;op.textContent=(i+1)+". "+h;s.appendChild(op);});
+  });
+  $("#mName").value=guessCol(head,["ad soyad","isim","İsim","name","姓名","ad"]);
+  $("#mOrg").value=guessCol(head,["firma","şirket","sirket","company","公司","kurum"]);
+  $("#mMail").value=guessCol(head,["posta","mail","email","電子"]);
+  $("#mTel").value=guessCol(head,["telefon","phone","gsm","電話","cep"]);
+  $("#mapBox").hidden=false;
+}
+function parsePasted(){
+  var txt=$("#paste").value.trim();
+  if(!txt){impMsg("bad","框裡是空的。先貼上名單，或選檔案再按讀取。");return;}
+  table=splitRows(txt);
+  if(table.length<2){impMsg("bad","至少要有標題列＋一筆資料。");return;}
+  impMsg("good","讀到 "+(table.length-1)+" 筆，右邊對一下欄位。");
+  fillMap(table[0]);
+}
+function parseFile(f){
+  var name=f.name.toLowerCase();
+  if(/\.(csv|tsv|txt)$/.test(name)){
+    var fr=new FileReader();
+    fr.onload=function(){$("#paste").value=fr.result;parsePasted();};
+    fr.readAsText(f,"utf-8");return;
+  }
+  loadScript("https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js").then(function(){
+    var fr=new FileReader();
+    fr.onload=function(){
+      var wb=window.XLSX.read(new Uint8Array(fr.result),{type:"array"});
+      var ws=wb.Sheets[wb.SheetNames[0]];
+      table=window.XLSX.utils.sheet_to_json(ws,{header:1,defval:""}).filter(function(r){
+        return r.some(function(c){return String(c).trim()!=="";});});
+      if(table.length<2){impMsg("bad","這張工作表沒有資料。");return;}
+      impMsg("good","讀到 "+(table.length-1)+" 筆，右邊對一下欄位。");
+      fillMap(table[0]);
+    };
+    fr.readAsArrayBuffer(f);
+  })["catch"](function(e){impMsg("bad",e.message+"（改存成 CSV 再試）");});
+}
+
+function newCode(seq){
+  var abc="ACDEFGHJKLMNPQRSTUVWXYZ2345679",r="";
+  for(var i=0;i<2;i++) r+=abc[Math.floor(Math.random()*abc.length)];
+  return "TTM26-"+String(seq).padStart(4,"0")+"-"+r;
+}
+function build(){
+  var ci={name:+$("#mName").value,org:+$("#mOrg").value,mail:+$("#mMail").value,tel:+$("#mTel").value,code:+$("#mCode").value};
+  if(ci.name<0){impMsg("bad","姓名欄一定要對到。");return;}
+  var byMail={};
+  Object.keys(guests).forEach(function(k){var m=(guests[k].mail||"").toLowerCase();if(m)byMail[m]=k;});
+  var next=Object.keys(guests).length+1,added=0,kept=0;
+  for(var r=1;r<table.length;r++){
+    var row=table[r];
+    var name=String(row[ci.name]||"").trim(); if(!name) continue;
+    var mail=ci.mail>=0?String(row[ci.mail]||"").trim():"";
+    var code=ci.code>=0?String(row[ci.code]||"").trim():"";
+    if(!code) code=(mail&&byMail[mail.toLowerCase()])||newCode(next++);
+    var old=guests[code]||{};
+    if(old.name) kept++; else added++;
+    guests[code]={name:name,
+      org:ci.org>=0?String(row[ci.org]||"").trim():(old.org||""),
+      mail:mail||old.mail||"",
+      tel:ci.tel>=0?String(row[ci.tel]||"").trim():(old.tel||""),
+      checkedAt:old.checkedAt||null};
+    if(mail) byMail[mail.toLowerCase()]=code;
+  }
+  cacheSet(guests);
+  putAll(guests).then(function(){impMsg("good","完成：新增 "+added+" 人，更新 "+kept+" 人，已上雲。");},
+    function(){impMsg("warn","完成：新增 "+added+" 人，更新 "+kept+" 人。雲端寫入失敗，目前存在本機，到「設定」測試連線。");});
+  renderList();buildSnips();
+  $$(".tabs button").forEach(function(b){if(b.getAttribute("data-pane")==="list")b.click();});
+}
+
+/* ---------- 名單 ---------- */
+function renderList(){
+  var q=$("#q").value.trim().toLowerCase(),f=$("#filt").value;
+  var keys=Object.keys(guests).sort(function(a,b){
+    return (guests[a].name||"").localeCompare(guests[b].name||"","tr");});
+  var view=keys.filter(function(k){
+    var g=guests[k];
+    if(f==="in"&&!g.checkedAt) return false;
+    if(f==="out"&&g.checkedAt) return false;
+    if(!q) return true;
+    return (k+" "+g.name+" "+(g.org||"")+" "+(g.mail||"")).toLowerCase().indexOf(q)>=0;
+  });
+  var tb=$("#rows");tb.innerHTML="";
+  view.forEach(function(k){
+    var g=guests[k],tr=document.createElement("tr");
+    tr.innerHTML='<td class="code">'+esc(k)+"</td><td><b>"+esc(g.name)+"</b></td><td>"+esc(g.org||"")+
+      "</td><td>"+esc(g.mail||"")+'</td><td class="'+(g.checkedAt?"yes":"no")+'">'+
+      (g.checkedAt?hhmm(g.checkedAt):"—")+'</td><td><a href="'+esc(ticketUrl(k))+
+      '" target="_blank" rel="noopener" style="font-size:13px">開啟票券</a></td>';
+    var td=document.createElement("td");
+    var b=document.createElement("button");b.className="btn-ghost btn-sm";b.type="button";
+    b.textContent=g.checkedAt?"取消":"報到";
+    b.onclick=function(){
+      if(g.checkedAt){ if(!confirm("取消「"+g.name+"」的報到紀錄？"))return;
+        g.checkedAt=null;cacheSet(guests);
+        fetch(gpath()+"/"+encodeURIComponent(k)+"/checkedAt.json",{method:"DELETE"})["catch"](function(){});
+        renderList();
+      } else checkIn(k).then(renderList);
+    };
+    td.appendChild(b);tr.appendChild(td);tb.appendChild(tr);
+  });
+  $("#emptyMsg").style.display=view.length?"none":"block";
+  var all=Object.keys(guests),inn=all.filter(function(k){return guests[k].checkedAt;});
+  $("#stTotal").textContent=all.length;
+  $("#stIn").textContent=inn.length;
+  $("#stRate").textContent=all.length?Math.round(inn.length/all.length*100)+"%":"0%";
+  var fm={};all.forEach(function(k){var o=(guests[k].org||"").trim().toLowerCase();if(o)fm[o]=1;});
+  $("#stFirm").textContent=Object.keys(fm).length;
+  stat();
+}
+function refresh(){
+  return pull().then(function(r){
+    $("#localBanner").hidden=r.cloud;
+    $("#syncInfo").textContent=(r.cloud?"雲端同步 ":"本機 ")+new Date().toLocaleTimeString("zh-TW",{hour12:false});
+    renderList();
+  });
+}
+function dl(blob,fn){var a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=fn;
+  document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove();},500);}
+function csvOut(forMail){
+  var head=forMail?["email","name","company","code","ticket_url","qr_image_url"]
+                  :["代碼","姓名","公司","Email","電話","報到時間","票券連結"];
+  var lines=[head.join(",")];
+  Object.keys(guests).sort().forEach(function(k){
+    var g=guests[k];
+    var cells=forMail?[g.mail||"",g.name,g.org||"",k,ticketUrl(k),qrImgUrl(k)]
+      :[k,g.name,g.org||"",g.mail||"",g.tel||"",g.checkedAt?new Date(g.checkedAt).toLocaleString("zh-TW",{hour12:false}):"",ticketUrl(k)];
+    lines.push(cells.map(function(v){return '"'+String(v).replace(/"/g,'""')+'"';}).join(","));
+  });
+  dl(new Blob(["\ufeff"+lines.join("\r\n")],{type:"text/csv;charset=utf-8"}),
+     (forMail?"mailmerge_":"checkin_")+cfg().event+".csv");
+}
+function zipAll(){
+  var keys=Object.keys(guests);
+  if(!keys.length) return;
+  if(keys.length>400&&!confirm(keys.length+" 張 QR 會跑一下，確定繼續？")) return;
+  $("#zipBtn").disabled=true;$("#zipBtn").textContent="產生中…";
+  loadScript("https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js").then(function(){
+    var zip=new window.JSZip(),cv=document.createElement("canvas"),chain=Promise.resolve();
+    keys.forEach(function(k){
+      chain=chain.then(function(){
+        return drawQR(cv,ticketUrl(k),600).then(function(){
+          var b64=cv.toDataURL("image/png").split(",")[1];
+          zip.file(k+".png",b64,{base64:true});
+        });
+      });
+    });
+    return chain.then(function(){
+      var man=["代碼,姓名,公司,Email"];
+      keys.forEach(function(k){var g=guests[k];
+        man.push([k,g.name,g.org||"",g.mail||""].map(function(v){return '"'+String(v).replace(/"/g,'""')+'"';}).join(","));});
+      zip.file("_對照表.csv","\ufeff"+man.join("\r\n"));
+      return zip.generateAsync({type:"blob"});});
+  }).then(function(b){dl(b,"qr_"+cfg().event+".zip");})
+  ["catch"](function(e){alert("產生失敗："+e.message);})
+  .then(function(){$("#zipBtn").disabled=false;$("#zipBtn").textContent="下載全部 QR（ZIP）";});
+}
+
+/* ---------- 信件素材 ---------- */
+function buildSnips(){
+  var u=$("#tokUrl").value, n=$("#tokName").value, c=$("#tokCode").value, q=cfg().qrbase;
+  $("#snipImg").value=
+'<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">\n'+
+'  <tr><td align="center" style="padding:8px 16px 20px;font-family:Arial,Helvetica,sans-serif;">\n'+
+'    <img src="' + q + c + '.png" alt="Giriş kodu" width="220" height="220"\n'+
+'         style="display:block;border:1px solid #DDE3EC;border-radius:8px;background:#ffffff;" />\n'+
+'    <p style="margin:10px 0 0;font-size:15px;letter-spacing:1px;color:#0B2140;"><b>' + c + '</b></p>\n'+
+'    <p style="margin:4px 0 0;font-size:12px;color:#7A879A;">Kod görünmüyorsa aşağıdaki butonu kullanın.</p>\n'+
+'  </td></tr>\n</table>';
+  $("#snipHtml").value=
+'<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">\n'+
+'  <tr><td align="center" style="padding:8px 16px 24px;font-family:Arial,Helvetica,sans-serif;">\n'+
+'    <a href="' + u + '" style="display:inline-block;background:#0B2140;color:#ffffff;text-decoration:none;\n'+
+'       font-size:16px;font-weight:bold;padding:15px 34px;border-radius:8px;">Giriş kartımı aç</a>\n'+
+'    <p style="margin:14px 0 0;font-size:13px;color:#7A879A;">\n'+
+'      Buton açılmazsa: <a href="' + u + '" style="color:#123055;">' + u + '</a></p>\n'+
+'  </td></tr>\n</table>';
+  $("#snipText").value=
+"Sayın "+n+",\n\n23 Eylül Çarşamba günü 10:00-16:00 arasında Hilton İstanbul Maslak'ta sizi ağırlamayı bekliyoruz.\n\n"+
+"Kişisel giriş kodunuz: "+c+"\nGiriş kartınız: "+u+"\n\n"+
+"Girişte bu kodu kayıt masasında okutmanız yeterli. Salonda internet zayıf olabilir, önceden ekran görüntüsü almanızı öneririz.\n\n"+
+"Osman GEDİK · Tayvan Ticaret Merkezi İstanbul\n0 212 290 40 00 · osman@taitra.org.tw";
+}
+
+/* ---------- 路由 ---------- */
+function show(id){
+  ["viewTicket","viewBad","viewScan","viewAdmin"].forEach(function(v){$("#"+v).hidden=(v!==id);});
+  document.body.className=(id==="viewAdmin")?"admin":(id==="viewScan")?"scan":"";
+}
+function route(){
+  var h=location.hash||"";
+  if(h.indexOf("#t=")===0){stopCam();showTicket(decodeURIComponent(h.slice(3)));return;}
+  if(/^#scan/i.test(h)){
+    show("viewScan");
+    guests=cacheGet();stat();pendSet(pendGet());
+    pull().then(function(){cacheSet(guests);stat();});
+    return;
+  }
+  if(/^#admin/i.test(h)){stopCam();show("viewAdmin");
+    var c=cfg();$("#cfgDb").value=c.db;$("#cfgEvent").value=c.event;$("#cfgBase").value=c.base;$("#cfgQr").value=c.qrbase;
+    if($("#adminBody").hidden) setTimeout(function(){$("#pw").focus();},60);
+    return;}
+  stopCam();show("viewBad");
+}
+
+function msg(kind,text){var m=$("#cfgMsg");m.hidden=false;m.className="banner "+(kind||"");m.textContent=text;}
+
+function init(){
+  snap();
+  $$(".lang button").forEach(function(b){b.onclick=function(){setLang(b.getAttribute("data-lang"));};});
+
+  $("#pwBtn").onclick=function(){
+    if($("#pw").value===PW){$("#gate").hidden=true;$("#adminBody").hidden=false;refresh();buildSnips();}
+    else{$("#pw").value="";$("#pw").placeholder="密碼不對";}};
+  $("#pw").addEventListener("keydown",function(e){if(e.key==="Enter")$("#pwBtn").click();});
+
+  $$(".tabs button").forEach(function(b){b.onclick=function(){
+    $$(".tabs button").forEach(function(x){x.classList.remove("on");});
+    $$(".pane").forEach(function(p){p.classList.remove("on");});
+    b.classList.add("on");$("#pane-"+b.getAttribute("data-pane")).classList.add("on");};});
+
+  $("#parseBtn").onclick=function(){
+    var f=$("#file").files[0];
+    if(f) parseFile(f); else parsePasted();};
+  $("#paste").addEventListener("paste",function(){setTimeout(parsePasted,60);});
+  $("#file").onchange=function(){var f=$("#file").files[0];if(f)parseFile(f);};
+  $("#buildBtn").onclick=build;
+
+  $("#q").oninput=renderList;
+  $("#filt").onchange=renderList;
+  $("#refreshBtn").onclick=refresh;
+  $("#csvBtn").onclick=function(){csvOut(false);};
+  $("#csvMailBtn").onclick=function(){csvOut(true);};
+  $("#zipBtn").onclick=zipAll;
+
+  ["tokUrl","tokName","tokCode"].forEach(function(id){$("#"+id).oninput=buildSnips;});
+  $$("[data-copy]").forEach(function(b){b.onclick=function(){
+    var ta=$("#"+b.getAttribute("data-copy"));ta.select();
+    var orig=b.textContent;
+    try{document.execCommand("copy");b.textContent="已複製";
+      setTimeout(function(){b.textContent=orig;},1400);}catch(e){}};});
+
+  $("#cfgSave").onclick=function(){
+    localStorage.setItem(LS_CFG,JSON.stringify({
+      db:$("#cfgDb").value.trim().replace(/\/+$/,""),
+      event:$("#cfgEvent").value.trim(),
+      base:$("#cfgBase").value.trim().split("#")[0],
+      qrbase:$("#cfgQr").value.trim()}));
+    msg("good","已儲存。");renderList();buildSnips();};
+  $("#cfgTest").onclick=function(){
+    msg("","測試中…");
+    var p=gpath()+"/__probe.json";
+    fetch(p,{method:"PUT",body:JSON.stringify({ts:Date.now()})})
+      .then(function(r){if(!r.ok)throw new Error("HTTP "+r.status);return fetch(p,{method:"DELETE"});})
+      .then(function(){msg("good","連線正常，可以寫入。");})
+      ["catch"](function(e){msg("bad","寫不進去（"+e.message+"）。多半是 Firebase 規則沒開 stageTool 底下的寫入權限。目前會用本機模式運作。");});};
+  $("#wipeBtn").onclick=function(){
+    if(!confirm("清空「"+cfg().event+"」的全部名單與報到紀錄？"))return;
+    if(!confirm("共 "+Object.keys(guests).length+" 筆，雲端和本機都會刪掉，無法復原。"))return;
+    if(prompt("最後確認：輸入 DELETE")!=="DELETE")return;
+    guests={};cacheSet(guests);pendSet({});
+    fetch(gpath()+".json",{method:"DELETE"})["catch"](function(){}).then(refresh,refresh);};
+
+  $("#camBtn").onclick=startCam;
+  $("#mq").oninput=manual;
+
+  window.addEventListener("hashchange",route);
+  window.addEventListener("online",function(){if(Object.keys(pendGet()).length)pull().then(stat);});
+  route();
+}
+
+if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",init);
+else init();
+})();
+</script>
+</body>
+</html>
