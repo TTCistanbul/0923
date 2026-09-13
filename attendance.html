@@ -5,16 +5,18 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>報到管理台 · Tayvan Tedarikçi Buluşması 2026</title>
 <style>
-:root{--navy:#0B2140;--navy2:#123055;--gold:#C9A552;--ice:#EEF2F7;--ink:#0B1622;--muted:#5A6B80;--ok:#1E7A5B;--danger:#A3342B;--line:rgba(11,33,64,.14)}
-*{box-sizing:border-box}body{margin:0;background:var(--ice);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans TC",Arial,sans-serif}.wrap{max-width:1180px;margin:auto;padding:0 18px 48px}.bar{background:var(--navy);color:#fff;border-bottom:3px solid var(--gold)}.bar .wrap{padding-top:16px;padding-bottom:16px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}.bar h1{font-size:19px;margin:0}.sp{margin-left:auto;color:#d5dfec;font-size:13px}.gate{max-width:360px;margin:80px auto;background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px;box-shadow:0 12px 30px rgba(11,33,64,.09)}.gate h2{margin:0 0 14px;font-size:19px}input,select,button{font:inherit}input,select{border:1.5px solid var(--line);border-radius:9px;padding:10px 12px;background:#fff}.gate input{width:100%;font-size:16px}.btn{border:0;border-radius:9px;background:var(--navy);color:#fff;padding:10px 14px;font-weight:600;cursor:pointer}.gate .btn{width:100%;margin-top:10px;padding:13px}.ghost{background:#fff;color:var(--navy);border:1.5px solid var(--line)}.danger{color:var(--danger)}#app{display:none}.stats{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0 14px}.stat{background:#fff;border:1px solid var(--line);border-radius:11px;padding:12px 18px;min-width:120px}.stat b{font-size:28px;display:block}.stat span{font-size:12px;color:var(--muted)}.tools{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px}.tools input{flex:1;min-width:210px}.banner{background:#FBF6E9;border:1px solid rgba(201,165,82,.45);color:#6B551A;padding:10px 13px;border-radius:10px;font-size:13px;margin-bottom:12px}.tablewrap{overflow:auto;max-height:63vh;background:#fff;border:1px solid var(--line);border-radius:11px}table{border-collapse:collapse;width:100%;font-size:14px}th,td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}th{position:sticky;top:0;background:#F6F8FB;color:var(--muted);font-size:12.5px;z-index:1}.yes{color:var(--ok);font-weight:700}.no{color:var(--danger);font-weight:600}.muted{color:var(--muted)}.empty{text-align:center;padding:34px;color:var(--muted)}@media(max-width:700px){.hide-sm{display:none}.stat{min-width:96px;padding:10px 12px}.stat b{font-size:24px}.tools .btn{flex:1}}
+:root{--navy:#0B2140;--gold:#C9A552;--ice:#EEF2F7;--ink:#0B1622;--muted:#5A6B80;--ok:#1E7A5B;--danger:#A3342B;--line:rgba(11,33,64,.14)}
+*{box-sizing:border-box}body{margin:0;background:var(--ice);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans TC",Arial,sans-serif}.wrap{max-width:1180px;margin:auto;padding:0 18px 48px}.bar{background:var(--navy);color:#fff;border-bottom:3px solid var(--gold)}.bar .wrap{padding-top:16px;padding-bottom:16px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}.bar h1{font-size:19px;margin:0}.sp{margin-left:auto;color:#d5dfec;font-size:13px}.gate{max-width:390px;margin:70px auto;background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px;box-shadow:0 12px 30px rgba(11,33,64,.09)}.gate h2{margin:0 0 8px;font-size:20px}.gate p{color:var(--muted);font-size:13px;margin:0 0 14px}.field{margin-bottom:11px}.field label{display:block;font-size:13px;font-weight:600;margin-bottom:5px}input,select,button{font:inherit}input,select{border:1.5px solid var(--line);border-radius:9px;padding:10px 12px;background:#fff}.gate input{width:100%;font-size:16px}.btn{border:0;border-radius:9px;background:var(--navy);color:#fff;padding:10px 14px;font-weight:600;cursor:pointer}.gate .btn{width:100%;margin-top:5px;padding:13px}.ghost{background:#fff;color:var(--navy);border:1.5px solid var(--line)}.danger{color:var(--danger)!important}#app{display:none}.stats{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0 14px}.stat{background:#fff;border:1px solid var(--line);border-radius:11px;padding:12px 18px;min-width:120px}.stat b{font-size:28px;display:block}.stat span{font-size:12px;color:var(--muted)}.tools{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px}.tools input{flex:1;min-width:210px}.banner{padding:10px 13px;border-radius:10px;font-size:13px;margin-bottom:12px}.banner.good{background:#F2F7F4;border:1px solid rgba(30,122,91,.3);color:#1B4E3D}.banner.warn{background:#FBF6E9;border:1px solid rgba(201,165,82,.45);color:#6B551A}.tablewrap{overflow:auto;max-height:63vh;background:#fff;border:1px solid var(--line);border-radius:11px}table{border-collapse:collapse;width:100%;font-size:14px}th,td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}th{position:sticky;top:0;background:#F6F8FB;color:var(--muted);font-size:12.5px;z-index:1}.yes{color:var(--ok);font-weight:700}.no{color:var(--danger);font-weight:600}.empty{text-align:center;padding:34px;color:var(--muted)}@media(max-width:700px){.hide-sm{display:none}.stat{min-width:96px;padding:10px 12px}.stat b{font-size:24px}.tools .btn{flex:1}}
 </style>
 </head>
 <body>
 <div id="gate" class="gate">
-  <h2>報到管理台</h2>
-  <input id="pw" type="password" placeholder="管理密碼" autocomplete="current-password">
-  <button id="enter" class="btn" type="button">進入</button>
-  <p id="pwmsg" class="danger" style="font-size:13px;margin:10px 0 0"></p>
+  <h2>工作人員登入</h2>
+  <p>請使用剛才在 Firebase Authentication 建立的工作人員帳號。</p>
+  <div class="field"><label for="email">Email</label><input id="email" type="email" autocomplete="username"></div>
+  <div class="field"><label for="pw">密碼</label><input id="pw" type="password" autocomplete="current-password"></div>
+  <button id="enter" class="btn" type="button">登入管理台</button>
+  <p id="pwmsg" class="danger" style="margin-top:10px"></p>
 </div>
 <div id="app">
   <div class="bar"><div class="wrap">
@@ -28,11 +30,13 @@
       <div class="stat"><b id="out">0</b><span>未報到</span></div>
       <div class="stat"><b id="rate">0%</b><span>報到率</span></div>
     </div>
-    <div class="banner" id="contactNote">若這台瀏覽器曾在 checkin.html 匯入原始名單，CSV 會自動帶出 Email／電話；其他裝置仍可看到即時報到狀態，但聯絡資料欄位會是空白。</div>
+    <div class="banner good" id="authNote">已用 Firebase Authentication 保護聯絡資料。</div>
+    <div class="banner warn" id="contactNote">若這台瀏覽器曾在 checkin.html 匯入原始名單，登入後會自動把 Email／電話同步到受保護的 contacts 區；之後任何已登入的工作人員裝置都能匯出完整未報到名單。</div>
     <div class="tools">
       <input id="q" type="text" placeholder="搜尋姓名 / 公司 / Email / 代碼">
       <select id="f"><option value="all">全部</option><option value="in">已報到</option><option value="out">未報到</option></select>
       <button id="refresh" class="btn ghost" type="button">立即更新</button>
+      <button id="syncContacts" class="btn ghost" type="button">同步本機 Email/電話</button>
       <button id="exportView" class="btn ghost" type="button">匯出目前畫面</button>
       <button id="exportOut" class="btn" type="button">匯出未報到 CSV</button>
     </div>
@@ -45,12 +49,13 @@
 <script>
 (function(){
 'use strict';
+var API_KEY='AIzaSyD6xHVWGzri9i84d_Rt02iIb8J7v95Y4BE';
 var DB='https://project-6961535532325995238-default-rtdb.europe-west1.firebasedatabase.app';
 var EVENT='istanbul-2026-09-23';
-var PW='taitra2026';
-var CLOUD=DB+'/stageTool/checkin/'+EVENT+'/guests.json';
+var GUESTS=DB+'/stageTool/checkin/'+EVENT+'/guests.json';
+var CONTACTS=DB+'/stageTool/checkin/'+EVENT+'/contacts.json';
 var LS='ck2Guests';
-var guests={}, local={};
+var guests={},contacts={},local={},token='';
 function $(s){return document.querySelector(s)}
 function esc(s){return String(s==null?'':s).replace(/[&<>\"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;'}[c]})}
 function csv(v){v=String(v==null?'':v);return /[\",\n]/.test(v)?'\"'+v.replace(/\"/g,'\"\"')+'\"':v}
@@ -59,14 +64,18 @@ function tsName(){var d=new Date();return d.getFullYear()+'-'+pad(d.getMonth()+1
 function time(v){if(!v)return '';var d=new Date(v);return pad(d.getHours())+':'+pad(d.getMinutes())}
 function fullTime(v){if(!v)return '';var d=new Date(v);return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())+' '+pad(d.getHours())+':'+pad(d.getMinutes())+':'+pad(d.getSeconds())}
 function loadLocal(){try{local=JSON.parse(localStorage.getItem(LS)||'{}')||{}}catch(e){local={}}}
-function merged(){var out={};Object.keys(guests).forEach(function(k){var g=guests[k]||{},l=local[k]||{};out[k]={name:g.name||l.name||'',org:g.org||l.org||'',mail:l.mail||'',tel:l.tel||'',checkedAt:g.checkedAt||null}});Object.keys(local).forEach(function(k){if(!out[k])out[k]=local[k]});return out}
+function authUrl(url){return url+(url.indexOf('?')>=0?'&':'?')+'auth='+encodeURIComponent(token)}
+function signIn(email,password){return fetch('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key='+encodeURIComponent(API_KEY),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:email,password:password,returnSecureToken:true})}).then(function(r){return r.json().then(function(j){if(!r.ok)throw new Error((j.error&&j.error.message)||'LOGIN_FAILED');return j})})}
+function merged(){var out={};Object.keys(guests).forEach(function(k){var g=guests[k]||{},c=contacts[k]||{},l=local[k]||{};out[k]={name:g.name||l.name||'',org:g.org||l.org||'',mail:c.mail||l.mail||'',tel:c.tel||l.tel||'',checkedAt:g.checkedAt||null}});Object.keys(local).forEach(function(k){if(!out[k]){var c=contacts[k]||{};out[k]={name:local[k].name||'',org:local[k].org||'',mail:c.mail||local[k].mail||'',tel:c.tel||local[k].tel||'',checkedAt:local[k].checkedAt||null}}});return out}
 function view(){var all=merged(),q=$('#q').value.trim().toLowerCase(),f=$('#f').value;return Object.keys(all).filter(function(k){var g=all[k];if(f==='in'&&!g.checkedAt)return false;if(f==='out'&&g.checkedAt)return false;if(!q)return true;return (k+' '+g.name+' '+g.org+' '+g.mail+' '+g.tel).toLowerCase().indexOf(q)>=0}).sort(function(a,b){return (all[a].name||'').localeCompare(all[b].name||'','tr')}).map(function(k){return [k,all[k]]})}
 function render(){var all=merged(),keys=Object.keys(all),inside=keys.filter(function(k){return all[k].checkedAt});$('#total').textContent=keys.length;$('#in').textContent=inside.length;$('#out').textContent=keys.length-inside.length;$('#rate').textContent=keys.length?Math.round(inside.length/keys.length*100)+'%':'0%';var rows=view(),tb=$('#rows');tb.innerHTML='';rows.forEach(function(x){var k=x[0],g=x[1],tr=document.createElement('tr');tr.innerHTML='<td class="'+(g.checkedAt?'yes':'no')+'">'+(g.checkedAt?'已報到':'未報到')+'</td><td>'+(g.checkedAt?esc(time(g.checkedAt)):'—')+'</td><td>'+esc(g.name)+'</td><td>'+esc(g.org)+'</td><td class="hide-sm">'+esc(g.mail)+'</td><td class="hide-sm">'+esc(g.tel)+'</td><td>'+esc(k)+'</td>';tb.appendChild(tr)});$('#empty').hidden=!!rows.length}
-function refresh(){loadLocal();$('#sync').textContent='同步中…';return fetch(CLOUD,{cache:'no-store'}).then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.json()}).then(function(j){guests=j||{};$('#sync').textContent='雲端同步 '+new Date().toLocaleTimeString('zh-TW',{hour12:false});render()}).catch(function(e){guests={};$('#sync').textContent='雲端讀取失敗，顯示本機快取';render();console.error(e)})}
+function fetchJson(url,secure){return fetch(secure?authUrl(url):url,{cache:'no-store'}).then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.json()})}
+function refresh(){loadLocal();$('#sync').textContent='同步中…';return Promise.all([fetchJson(GUESTS,false),fetchJson(CONTACTS,true)]).then(function(a){guests=a[0]||{};contacts=a[1]||{};$('#sync').textContent='雲端同步 '+new Date().toLocaleTimeString('zh-TW',{hour12:false});render()}).catch(function(e){$('#sync').textContent='同步失敗';render();throw e})}
+function syncLocalContacts(){loadLocal();var out={},n=0;Object.keys(local).forEach(function(k){var g=local[k]||{};if(g.mail||g.tel){out[k]={mail:g.mail||'',tel:g.tel||''};n++}});if(!n){$('#contactNote').textContent='這台瀏覽器沒有可同步的 Email／電話。請在原本匯入名單的那台電腦開啟此管理台。';return Promise.resolve(0)}return fetch(authUrl(CONTACTS),{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify(out)}).then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.json()}).then(function(){contacts=Object.assign({},contacts,out);$('#contactNote').textContent='已安全同步 '+n+' 位買主的 Email／電話到受保護的 contacts 區。';render();return n})}
 function download(rows,label){var head=['狀態','報到時間','代碼','姓名','公司','Email','電話'];var lines=[head.map(csv).join(',')];rows.forEach(function(x){var k=x[0],g=x[1];lines.push([g.checkedAt?'已報到':'未報到',fullTime(g.checkedAt),k,g.name,g.org,g.mail,g.tel].map(csv).join(','))});var blob=new Blob(['\ufeff'+lines.join('\r\n')],{type:'text/csv;charset=utf-8'});var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=label+'_'+tsName()+'.csv';document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},500)}
-$('#enter').onclick=function(){if($('#pw').value!==PW){$('#pwmsg').textContent='密碼不正確';return}$('#gate').style.display='none';$('#app').style.display='block';refresh();setInterval(refresh,30000)};
+$('#enter').onclick=function(){var email=$('#email').value.trim(),pw=$('#pw').value;$('#pwmsg').textContent='';$('#enter').disabled=true;signIn(email,pw).then(function(j){token=j.idToken;$('#gate').style.display='none';$('#app').style.display='block';return refresh().then(syncLocalContacts)}).then(function(){setInterval(refresh,30000)}).catch(function(e){$('#pwmsg').textContent='登入或同步失敗，請確認 Email、密碼與 Database Rules。';console.error(e)}).finally(function(){$('#enter').disabled=false})};
 $('#pw').addEventListener('keydown',function(e){if(e.key==='Enter')$('#enter').click()});
-$('#q').oninput=render;$('#f').onchange=render;$('#refresh').onclick=refresh;
+$('#q').oninput=render;$('#f').onchange=render;$('#refresh').onclick=refresh;$('#syncContacts').onclick=syncLocalContacts;
 $('#exportView').onclick=function(){download(view(),'attendance_view')};
 $('#exportOut').onclick=function(){refresh().then(function(){var all=merged(),rows=Object.keys(all).filter(function(k){return !all[k].checkedAt}).sort(function(a,b){return (all[a].name||'').localeCompare(all[b].name||'','tr')}).map(function(k){return [k,all[k]]});download(rows,'not_checked_in')})};
 })();
