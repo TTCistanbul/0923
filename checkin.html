@@ -86,6 +86,8 @@
   #viewScan .bar .sp{margin-left:auto;display:flex;gap:8px;align-items:center}
   .pill{background:rgba(255,255,255,.12);border-radius:99px;padding:4px 12px;font-size:13px;color:#D5DFEC}
   .pill.alert{background:var(--gold);color:#1A1405;font-weight:600}
+  #scanLang{border-color:rgba(255,255,255,.3)}
+  #scanLang button{padding:4px 11px;font-size:13px}
   .camwrap{position:relative;max-width:520px;margin:18px auto 0;border-radius:16px;overflow:hidden;background:#000;aspect-ratio:1}
   #cam{width:100%;height:100%;object-fit:cover;display:block}
   .reticle{position:absolute;inset:14%;border:3px solid rgba(201,165,82,.9);border-radius:14px;pointer-events:none}
@@ -142,7 +144,7 @@
   <header class="hero">
     <div class="wrap">
       <div class="topbar">
-        <span class="ver">V6</span>
+        <span class="ver">V7</span>
         <span class="lang">
           <button type="button" data-lang="tr" class="on">TR</button>
           <button type="button" data-lang="en">EN</button>
@@ -186,8 +188,12 @@
 <!-- ================= 掃碼報到（工作人員） ================= -->
 <div id="viewScan" class="scan" hidden>
   <div class="bar"><div class="wrap">
-    <h2>掃碼報到</h2>
+    <h2 id="sTitle">掃碼報到</h2>
     <div class="sp">
+      <span class="lang" id="scanLang">
+        <button type="button" data-slang="zh" class="on">中</button>
+        <button type="button" data-slang="tr">TR</button>
+      </span>
       <span class="pill" id="scanStat">0 / 0</span>
       <span class="pill" id="pendPill" hidden>待同步 0</span>
       <button class="btn-ghost btn-sm" type="button" id="camBtn">開啟相機</button>
@@ -200,11 +206,11 @@
     </div>
     <div class="result" id="scanRes"></div>
     <div class="manual">
-      <label for="mq">掃不到就用手打：姓名 / 公司 / 代碼</label>
+      <label for="mq" id="sManual">掃不到就用手打：姓名 / 公司 / 代碼</label>
       <input type="text" id="mq" placeholder="輸入兩個字以上">
       <div class="hitlist" id="hits"></div>
     </div>
-    <p class="hint" style="color:#7E8CA0;text-align:center;margin-top:16px">相機需要 https 網址才能開。名單已存在這台裝置，網路斷了照樣能報到，恢復後自動補傳。</p>
+    <p class="hint" id="sNote" style="color:#7E8CA0;text-align:center;margin-top:16px">相機需要 https 網址才能開。名單已存在這台裝置，網路斷了照樣能報到，恢復後自動補傳。</p>
   </div>
 </div>
 
@@ -388,7 +394,7 @@ function cacheSet(o){try{localStorage.setItem(LS_G,JSON.stringify(o));}catch(e){
 function pendGet(){try{return JSON.parse(localStorage.getItem(LS_P)||"{}");}catch(e){return {};}}
 function pendSet(o){try{localStorage.setItem(LS_P,JSON.stringify(o));}catch(e){}
   var n=Object.keys(o).length,p=$("#pendPill");
-  if(p){p.hidden=!n;p.textContent="待同步 "+n;p.classList.toggle("alert",!!n);}}
+  if(p){p.hidden=!n;p.textContent=(typeof st==="function"?st("pend"):"待同步 ")+n;p.classList.toggle("alert",!!n);}}
 
 var guests={};
 
@@ -500,6 +506,35 @@ function showTicket(code){
     ["catch"](function(){paint(cacheGet()[code]||null);});
 }
 
+/* ---------- 掃碼頁語言 ---------- */
+var SCAN={
+  zh:{title:"掃碼報到",camOn:"開啟相機",camOff:"關閉相機",pend:"待同步 ",
+      manual:"掃不到就用手打：姓名 / 公司 / 代碼",ph:"輸入兩個字以上",
+      note:"相機需要 https 網址才能開。名單已存在這台裝置，網路斷了照樣能報到，恢復後自動補傳。",
+      ok:"報到成功",dup:"已經報到過了",no:"名單上找不到這組代碼",noCam:"相機打不開",
+      askName:"請他報名字，用下面的手打搜尋。",entered:" 進場",needHttps:"要用 https 網址才能開相機。",
+      btnIn:"報到",wasIn:" 已到"},
+  tr:{title:"Giriş okutma",camOn:"Kamerayı aç",camOff:"Kamerayı kapat",pend:"Bekleyen ",
+      manual:"Okutulamıyorsa elle arayın: ad / firma / kod",ph:"En az 2 harf yazın",
+      note:"Kamera için https adresi gerekir. Liste bu cihazda saklanır; internet kesilse de giriş alınır, bağlantı gelince otomatik gönderilir.",
+      ok:"Giriş tamam",dup:"Daha önce giriş yapılmış",no:"Bu kod listede yok",noCam:"Kamera açılamadı",
+      askName:"Adını sorup aşağıdan arayın.",entered:" girişi",needHttps:"Kamera için https adresi gerekir.",
+      btnIn:"Giriş",wasIn:" girdi"}
+};
+var slang="zh";
+try{slang=localStorage.getItem("ck2ScanLang")||"zh";}catch(e){}
+function st(k){return (SCAN[slang]||SCAN.zh)[k];}
+function applyScanLang(){
+  var t=$("#sTitle");if(t)t.textContent=st("title");
+  var m=$("#sManual");if(m)m.textContent=st("manual");
+  var q=$("#mq");if(q)q.placeholder=st("ph");
+  var n=$("#sNote");if(n)n.textContent=st("note");
+  var c=$("#camBtn");if(c)c.textContent=scanning?st("camOff"):st("camOn");
+  $$("#scanLang button").forEach(function(b){b.classList.toggle("on",b.getAttribute("data-slang")===slang);});
+  pendSet(pendGet());
+  if($("#mq")&&$("#mq").value) manual();
+}
+
 /* ---------- 掃碼 ---------- */
 var stream=null,scanning=false,lastCode="",lastAt=0;
 function startCam(){
@@ -508,14 +543,14 @@ function startCam(){
     return navigator.mediaDevices.getUserMedia({video:{facingMode:"environment"}});
   }).then(function(s){
     stream=s;var v=$("#cam");v.srcObject=s;v.play();
-    $("#camWrap").hidden=false;$("#camBtn").textContent="關閉相機";scanning=true;tick();
+    $("#camWrap").hidden=false;scanning=true;$("#camBtn").textContent=st("camOff");tick();
   })["catch"](function(e){
-    res("no","相機打不開","",(location.protocol==="https:"?"":"要用 https 網址才能開相機。")+" "+e.message);
+    res("no",st("noCam"),"",(location.protocol==="https:"?"":st("needHttps"))+" "+e.message);
   });
 }
 function stopCam(){
   scanning=false;if(stream){stream.getTracks().forEach(function(t){t.stop();});stream=null;}
-  $("#camWrap").hidden=true;$("#camBtn").textContent="開啟相機";
+  $("#camWrap").hidden=true;$("#camBtn").textContent=st("camOn");
 }
 var cvs=document.createElement("canvas");
 function tick(){
@@ -557,9 +592,9 @@ function handleCode(raw){
   if(code===lastCode&&now-lastAt<2500) return;
   lastCode=code;lastAt=now;
   var g=guests[code];
-  if(!g){beep(false);res("no","名單上找不到這組代碼",code,"請他報名字，用下面的手打搜尋。");return;}
-  if(g.checkedAt){beep(false);res("dup","已經報到過了",g.name,hhmm(g.checkedAt)+" 進場",g.org);stat();return;}
-  checkIn(code).then(function(){beep(true);res("ok","報到成功",g.name,code,g.org);stat();});
+  if(!g){beep(false);res("no",st("no"),code,st("askName"));return;}
+  if(g.checkedAt){beep(false);res("dup",st("dup"),g.name,hhmm(g.checkedAt)+st("entered"),g.org);stat();return;}
+  checkIn(code).then(function(){beep(true);res("ok",st("ok"),g.name,code,g.org);stat();});
 }
 function stat(){
   var all=Object.keys(guests),inn=all.filter(function(k){return guests[k].checkedAt;});
@@ -576,9 +611,9 @@ function manual(){
     var g=guests[k],d=document.createElement("div");d.className="hit";
     d.innerHTML="<div><b>"+esc(g.name)+"</b><span>"+esc(g.org||"")+" · "+esc(k)+"</span></div>";
     var right=document.createElement("div");
-    if(g.checkedAt){right.className="done";right.textContent=hhmm(g.checkedAt)+" 已到";}
-    else{var b=document.createElement("button");b.className="btn-ghost btn-sm";b.type="button";b.textContent="報到";
-      b.onclick=function(){checkIn(k).then(function(){beep(true);res("ok","報到成功",g.name,k,g.org);stat();manual();});};
+    if(g.checkedAt){right.className="done";right.textContent=hhmm(g.checkedAt)+st("wasIn");}
+    else{var b=document.createElement("button");b.className="btn-ghost btn-sm";b.type="button";b.textContent=st("btnIn");
+      b.onclick=function(){checkIn(k).then(function(){beep(true);res("ok",st("ok"),g.name,k,g.org);stat();manual();});};
       right.appendChild(b);}
     d.appendChild(right);box.appendChild(d);
   });
@@ -810,6 +845,7 @@ function route(){
   if(h.indexOf("#t=")===0){stopCam();showTicket(decodeURIComponent(h.slice(3)));return;}
   if(/^#scan/i.test(h)){
     show("viewScan");
+    applyScanLang();
     guests=cacheGet();stat();pendSet(pendGet());
     pull().then(function(){cacheSet(guests);stat();});
     return;
@@ -880,6 +916,10 @@ function init(){
     fetch(gpath()+".json",{method:"DELETE"})["catch"](function(){}).then(refresh,refresh);};
 
   $("#camBtn").onclick=startCam;
+  $$("#scanLang button").forEach(function(b){b.onclick=function(){
+    slang=b.getAttribute("data-slang");
+    try{localStorage.setItem("ck2ScanLang",slang);}catch(e){}
+    applyScanLang();};});
   $("#mq").oninput=manual;
 
   window.addEventListener("hashchange",route);
